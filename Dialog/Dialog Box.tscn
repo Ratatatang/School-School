@@ -1,0 +1,33 @@
+[gd_scene format=2]
+
+[node name="Dialog Box" type="Node2D"]
+
+[node name="Backing" type="ColorRect" parent="."]
+margin_left = -491.0
+margin_top = 152.0
+margin_right = 489.0
+margin_bottom = 270.0
+color = Color( 0.454902, 0.454902, 0.454902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="."]
+margin_left = -489.0
+margin_top = 154.0
+margin_right = 490.0
+margin_bottom = 268.0
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="RichTextLabel" parent="."]
+margin_left = -443.0
+margin_top = 135.0
+margin_right = -9.0
+margin_bottom = 175.0
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
