@@ -13,13 +13,13 @@ var currenText = ""
 var finished = false
 var enabled = false
 
-var currentChoice = 0
-var maxChoices = 0
+var currentChoice = null
 
 # sets up the dialog, takes the path and gets the dialog
 
 func start(dialogPath, dialogSpeed = 0.05):
 	enabled = true
+	currentChoice = null
 	print("Starting Dialog")
 	diaPath = dialogPath
 	diaSpeed = dialogSpeed
@@ -35,26 +35,36 @@ func start(dialogPath, dialogSpeed = 0.05):
 # warning-ignore:unused_argument
 func _process(delta):
 	if(enabled == true):
-		if Input.is_action_just_pressed("escape") and $Choices.visible == false:
+		if Input.is_action_just_pressed("space") and $Choices.visible == false:
 			if finished:
 				nextPhrase()
 			else:
 				$Dialog.visible_characters = len($Dialog.text)
-				
 		if $Choices.visible == true:
-			if Input.is_action_just_pressed("ui_right"):
-				currentChoice += 1
-			if Input.is_action_just_pressed("ui_left"):
-				currentChoice -= 1
-				
-			if currentChoice > maxChoices:
+			if currentChoice == null:
 				currentChoice = 0
-			elif currentChoice < 0:
-				currentChoice = maxChoices
+			else:
+				var currentChoiceScroll = []
+				for i in len(choiceScroll):
+					if(choiceScroll[i].visible == true):
+						currentChoiceScroll.append(choiceScroll[i])
 			
-			for i in len(choices):
-				choiceScroll[i].get_node("ChoiceText").set("custom_colors/default_color",Color(1,1,1))
-			choiceScroll[currentChoice].get_node("ChoiceText").set("custom_colors/default_color",Color(1,1,0))
+				if Input.is_action_just_pressed("ui_right"):
+					currentChoice += 1
+				if Input.is_action_just_pressed("ui_left"):
+					currentChoice -= 1
+				
+				if currentChoice > len(currentChoiceScroll)-1:
+					currentChoice = 0
+				elif currentChoice < 0:
+					currentChoice = len(currentChoiceScroll)-1
+			
+				for i in len(currentChoiceScroll):
+					currentChoiceScroll[i].get_node("ChoiceText").set("custom_colors/default_color",Color(1,1,1))
+				currentChoiceScroll[currentChoice].get_node("ChoiceText").set("custom_colors/default_color",Color(1,1,0))
+			
+				if Input.is_action_just_pressed("space"):
+					choiceManager(currentChoiceScroll[currentChoice])
 	else:
 		#visible = false
 		$Name.bbcode_text = ""
@@ -66,7 +76,7 @@ func _process(delta):
 	
 func getDialog():
 	var diaFile = File.new()
-	diaFile.open("res://Dialog/Dialog Files"+str(diaPath)+".json", File.READ)
+	diaFile.open("res://Dialog/Dialog Files/"+str(diaPath)+".json", File.READ)
 	var diaFileData = JSON.parse(diaFile.get_as_text())
 	diaFile.close()
 	return(diaFileData.result)
@@ -112,7 +122,7 @@ func revealChoices(choice):
 				$Timer.start()
 				yield($Timer, "timeout")
 
-# gets and sets the name and dialog as well as calling events and setting
+# gets and sets the name and dilog as well as calling events and setting
 # dialog choices
 
 func findDialog(key = "") -> void:
@@ -153,15 +163,11 @@ func findDialog(key = "") -> void:
 		print(decisKeys)
 		for i in len(decisKeys):
 			choices[i].get_node("ChoiceText").bbcode_text = str(decisKeys[i])
-			maxChoices +=1
 			
 		for i in len(choices)-len(decisKeys):
 			choices[i+len(decisKeys)].visible = false
 	else:
 		enabled = false
-		find_parent("Player").frozen = false
-		find_parent("Player").external_set_state("move")
-		visible = false
 
 # helper function for setting the dialog or choice as the
 # visible part of the dialog
@@ -181,27 +187,3 @@ func choiceManager(button):
 	var choice = button.get_node("ChoiceText").bbcode_text
 	print(choice)
 	nextPhrase(choice, true)
-	
-
-func _on_Choice1_pressed():
-	choiceManager($Choices/Choice1)
-
-
-func _on_Choice2_pressed():
-	choiceManager($Choices/Choice2)
-
-
-func _on_Choice3_pressed():
-	choiceManager($Choices/Choice3)
-
-
-func _on_Choice4_pressed():
-	choiceManager($Choices/Choice4)
-
-
-func _on_Choice5_pressed():
-	choiceManager($Choices/Choice5)
-
-
-func _on_Choice6_pressed():
-	choiceManager($Choices/Choice6)

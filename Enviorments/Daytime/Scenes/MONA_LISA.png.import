@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MONA_LISA.png-9e052c5353a0979739e52baa775f415a.stex"
+path="res://.import/MONA_LISA.png-fd110aabfbac380ef98dba9f3c219370.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enviorments/MONA_LISA.png"
-dest_files=[ "res://.import/MONA_LISA.png-9e052c5353a0979739e52baa775f415a.stex" ]
+source_file="res://Enviorments/Daytime/Scenes/MONA_LISA.png"
+dest_files=[ "res://.import/MONA_LISA.png-fd110aabfbac380ef98dba9f3c219370.stex" ]
 
 [params]
 

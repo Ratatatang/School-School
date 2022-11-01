@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float amount = 40.0;
+
+void fragment() {
+	vec2 uv = UV*0.05;
+	float a = fract(sin(dot(UV, vec2(12.9898, 78.233) * TIME)) * 438.5453) * 1.7;
+	vec4 col = texture(TEXTURE, UV);
+	col.a *= pow(a, amount);
+	COLOR.a = col.a;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/amount = 40.0
+
+[node name="Static_Overlay" type="ColorRect"]
+material = SubResource( 2 )
+anchor_right = 1.137
+anchor_bottom = 1.225
+margin_right = -0.288086
+rect_min_size = Vector2( 1164, 735 )
+color = Color( 0.290196, 0.290196, 0.290196, 0 )
+__meta__ = {
+"_edit_use_anchors_": true
+}

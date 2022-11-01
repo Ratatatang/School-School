@@ -216,9 +216,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2( 1.52588e-05, -3.8147e-06 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Polygon2D"]
-
 [node name="Timer" type="Timer" parent="."]

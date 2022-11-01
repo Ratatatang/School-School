@@ -1,44 +1,43 @@
+
 extends Node2D
 
-onready var currentPhase = $Daytime 
-var currentTime = time
-
-class time:
-	var AMPM
-	var hours
-	var minutes
-	
-	func _init():
-		AMPM = "AM"
-		hours = 9
-		minutes = 0
-		
-	func checkTime():
-		if(AMPM == "AM"):
-			if(hours < 5):
-				return "Day"
-			else:
-				return "Night"
-		else:
-			if(hours > 12):
-				return "Night"
-			else:
-				return "Day"
-
+onready var currentPhase = $Daytime
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-func checkTime():
-	if(currentTime.checkTime() == "Day"):
-		currentPhase = $Daytime
-		$Daytime.visible = true
-		$Nightime.visible = false
-	elif(currentTime.checkTime() == "Night"):
-		currentPhase = $Nightime
-		$Daytime.visible = false
-		$Nightime.visible = true
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_just_pressed("test_button"):
+		changeTime()
+	if Input.is_action_just_pressed("test_2"):
+		currentPhase.passDialog("TEST")
+	if Input.is_action_just_pressed("test_3"):
+		currentPhase.changeScene("badroom")
+	if Input.is_action_just_pressed("test_4"):
+		currentPhase.changeScene("MONA_LISA")
+		
+func changeTime(time = " "):
+	if(time == " "):
+		if(currentPhase == $Daytime):
+			currentPhase = $Nightime
+			$Nightime.setCurrent()
+			$Daytime.visible = false
+			$Nightime.visible = true
+		else:
+			currentPhase = $Daytime
+			$Daytime.setCurrent()
+			$Daytime.visible = true
+			$Nightime.visible = false
+	else:
+		if(time == "Day" or time == "Daytime"):
+			currentPhase = $Daytime
+			$Daytime.setCurrent()
+			$Daytime.visible = true
+			$Nightime.visible = false
+		if(time == "Night" or time == "Nightime"):
+			currentPhase = $Nightime
+			$Nightime.setCurrent()
+			$Daytime.visible = false
+			$Nightime.visible = true
+

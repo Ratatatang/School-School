@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enviorments/Daytime/Daytime.gd" type="Script" id=2]
+[ext_resource path="res://Enviorments/Daytime/Scenes/MONA_LISA.png" type="Texture" id=3]
+[ext_resource path="res://pixelFont.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 4 )
+
+[node name="Daytime" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Scene" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="Area_Label" type="RichTextLabel" parent="."]
+margin_left = 265.0
+margin_top = -287.0
+margin_right = 502.0
+margin_bottom = -219.0
+rect_pivot_offset = Vector2( -506, -104 )
+custom_fonts/normal_font = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": "sdvvfdvf"
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+__meta__ = {
+"_editor_description_": "sdvvfdvf"
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]

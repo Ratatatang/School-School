@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Enviorments/Static_Overlay.tscn" type="PackedScene" id=2]
+
+[node name="Cameras" type="Node2D"]
+
+[node name="Static_Overlay" parent="." instance=ExtResource( 2 )]
+visible = false
+margin_left = -560.0
+margin_top = -348.0
+margin_right = 604.0
+margin_bottom = 387.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
